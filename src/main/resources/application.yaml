@@ -1,0 +1,24 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: ESHOP-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://ESHOP-ORDER-SERVICE
+          predicates:
+            - Path=/eshop/order/**
+        - id: user-service
+          uri: lb://ESHOP-USER-SERVICE
+          predicates:
+            - Path=/eshop/user/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+  instance:
+    hostname: localhost
